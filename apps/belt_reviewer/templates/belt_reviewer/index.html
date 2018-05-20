@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Welcome!</title>
+    {% load static %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static '/belt_reviewer/css/style.css' %}">
+</head>
+
+<body>
+    <h1>Welcome</h1>
+    <form action="{% url 'new_user' %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Register</legend>
+            <span class="input">Name: <input type="text" name="name"></span>
+            {% if "errors" in request.session and "name" in request.session.errors %}
+                <span class="error">{{ request.session.errors.name }}</span>
+            {% endif %}
+            <span class="input">Alias: <input type="text" name="alias"></span>
+            {% if "errors" in request.session and "alias" in request.session.errors %}
+                <span class="error">{{ request.session.errors.alias }}</span>
+            {% endif %}
+            <span class="input">Email: <input type="text" name="reg_email"></span>
+            {% if "errors" in request.session and "email" in request.session.errors %}
+                <span class="error">{{ request.session.errors.email }}</span>
+            {% endif %}
+            <span class="input">Password: <input type="password" name="reg_password"></span>
+            {% if "errors" in request.session and "password" in request.session.errors %}
+                <span class="error">{{ request.session.errors.password }}</span>
+            {% endif %}
+            <span class="input">Confirm: <input type="password" name="confirm"></span>
+            {% if "errors" in request.session and "confirm" in request.session.errors %}
+                <span class="error">{{ request.session.errors.confirm }}</span>
+            {% endif %}
+            <input type="submit" value="Register">
+        </fieldset>
+    </form>
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Login</legend>
+            <span class="input">Email: <input type="text" name="log_email"></span>
+            <span class="input">Password: <input type="password" name="log_password"></span>
+            <input type="submit" value="Login">
+        </fieldset>
+    </form>
+</body>
+
+</html>
